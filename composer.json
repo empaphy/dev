@@ -1,0 +1,33 @@
+{
+    "name": "empaphy/dev",
+    "description": "Common dev dependencies of all Empaphy components.",
+    "type": "metapackage",
+    "keywords": ["Empaphy", "common", "development"],
+    "homepage": "https://dev.empaphy.org",
+    "readme": "README.rst",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alwin Garside",
+            "email": "alwin@garsi.de",
+            "homepage": "https://yogarine.net",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/empaphy/dev/issues",
+        "source": "https://github.com/empaphy/dev",
+        "docs": "https://dev.empaphy.org/",
+        "rss": "https://github.com/empaphy/dev/releases.atom"
+    },
+    "require": {
+        "friendsofphp/php-cs-fixer": "^3",
+        "pestphp/pest": "^3 || ^2",
+        "phpstan/phpstan": "^2"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    }
+}

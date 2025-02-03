@@ -1,0 +1,9 @@
+/vendor
+
+/composer.lock
+
+.git
+
+.DS_Store
+compose.override.yaml
+docker-compose.override.yaml
