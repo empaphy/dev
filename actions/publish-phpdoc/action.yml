@@ -1,0 +1,49 @@
+name: 'Publish PHPDoc'
+description: 'Generate docs with phpDocumentor & publish to GitHub Pages'
+
+inputs:
+  phpdoc-build-path:
+    description: 'phpDocumentor output path'
+    required: false
+    default: '.phpdoc/build'
+  phpdoc-cache-path:
+    description: 'phpDocumentor cache path'
+    required: false
+    default: '.phpdoc/cache'
+
+outputs:
+  random-number:
+    description: "Random number"
+    value: ${{ steps.random-number-generator.outputs.random-number }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Configure GitHub Pages
+      uses: actions/configure-pages@v5
+
+    - name: Cache phpDocumentor
+      id: phpdocumentor-cache
+      uses: actions/cache@v4
+      with:
+        path: "${{ inputs.phpdoc-cache-path }}"
+        key:  "${{ runner.os }}-phpdocumentor-${{ github.sha }}"
+        restore-keys: |
+          ${{ runner.os }}-phpdocumentor-
+
+    - name: Generate docs with phpDocumentor
+      uses: bash
+      #language=bash
+      run: docker compose run --rm phpdoc -t ${{ inputs.target-path }}
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ${{ input.output-path }}
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
